@@ -21,7 +21,7 @@ func (s *WcServer) WordCount(ctx context.Context, in *pb.Request) (*pb.Response,
 	content := strings.TrimSpace(in.Text)
 	//Checking empty string
 	if content == "" {
-		return nil, errors.New("Empty String!!!")
+		return nil, errors.New("empty string")
 
 	}
 
@@ -47,7 +47,7 @@ func (s *WcServer) WordCount(ctx context.Context, in *pb.Request) (*pb.Response,
 
 	//Check map empty!!!
 	if len(wcMap) == 0 {
-		return nil, errors.New("Not a valid Word!!!")
+		return nil, errors.New("not a valid word")
 	}
 
 	//A slice that contains words

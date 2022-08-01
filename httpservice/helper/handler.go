@@ -17,6 +17,6 @@ func Handler(res http.ResponseWriter, req *http.Request) {
 	}
 
 	text := string(file)
-	wordCount(text)
+	WordCount(text)
 
 }
