@@ -16,8 +16,8 @@ import (
 func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 	// provide input
 
-	fmt.Println("Enter Details:")
-	fmt.Println("Book Titles: ")
+	fmt.Println("\nPlease Enter Details:")
+	fmt.Println("\nBook Titles: ")
 
 	title, err := reader.ReadString('\n')
 	if err != nil {
@@ -26,7 +26,9 @@ func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 	}
 	title = strings.TrimSpace(title)
 
-	fmt.Println("Author Name...")
+	// fmt.Println(title)
+
+	fmt.Println("\nAuthor Name: ")
 
 	author, err := reader.ReadString('\n')
 	if err != nil {
@@ -35,9 +37,11 @@ func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 	}
 	author = strings.TrimSpace(author)
 
+	// fmt.Println(author)
+
 	if title == "" || author == "" {
 		// return errors.New("empty strings plz do some enteries...")
-		HandleError(err)
+		fmt.Println("Please check Title or Author It coudn't be empty")
 	}
 	// creating book to send request...
 	NewBook := &pb.Book{
