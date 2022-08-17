@@ -44,7 +44,7 @@ func TestWc(t *testing.T) {
 	c := pb.NewWordCountServiceClient(conn)
 
 	//Result
-	response, err := c.WordCount(ctx, &pb.Request{Text: "My name is Niladri, I am Niladri."})
+	response, err := c.WordCount(ctx, &pb.Request{Text: "My name is Javed, and i am a passionate learner with source of data.. bla bla bla bla..."})
 	if err != nil {
 		t.Fatal("Could not count word: \n", err)
 	}

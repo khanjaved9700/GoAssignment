@@ -1,0 +1,61 @@
+syntax="proto3";
+package grpc;
+
+option go_package="/grpc/pb";
+
+message Book {
+    uint64 Id=1;
+    string Title=2;
+    string Author=3;
+  }
+   
+  message CreateBookRequest {
+    Book book = 1;
+  }
+  
+  message CreateBookResponse {
+    Book book = 1;
+  }
+  
+  message GetAllBookRequest {
+    Book book = 1;
+  }
+  message GetAllBookResponse {
+    Book book = 1;
+  }
+  message SearchBookRequest{
+    oneof searchBy{
+        string Title=1;
+        string Author =2;
+    }
+  }
+  message SearchBookResponse{
+    Book book =1;
+  }
+  
+  message UpdateBookRequest {
+    Book book = 1;
+    // string title=2;
+  }
+  
+  message UpdateBookResponse {
+    Book book = 1;
+  }
+  
+  message DeleteBookRequest {
+    // int32 uid=1;
+    string Title = 1;
+  }
+  
+  message DeleteBookResponse {
+    // int32 uid = 1;
+    bool Dlt =1;
+  }
+  
+  service BookService {
+    rpc CreateBook(CreateBookRequest) returns (CreateBookResponse); //unary
+    rpc GetAllBook(GetAllBookRequest) returns ( stream GetAllBookResponse); // straming
+    rpc SearchBook(SearchBookRequest) returns ( stream SearchBookResponse); // straming
+    rpc UpdateBook(UpdateBookRequest) returns (UpdateBookResponse); //unary
+    rpc DeleteBook(DeleteBookRequest) returns (DeleteBookResponse); // unary
+  }
