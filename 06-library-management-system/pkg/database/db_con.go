@@ -1,33 +1,39 @@
 package database
 
 import (
+	"bookms/pkg/config"
 	"bookms/pkg/model"
 	"context"
 	"errors"
-	"fmt"
 
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
+	// "gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var db *gorm.DB
 
-const DNS = "root:javed@123@tcp(localhost:3306)/bookms_db?charset=utf8mb4&parseTime=True&loc=Local"
+// const DNS = "root:javed@123@/bookms_db?charset=utf8mb4&parseTime=True&loc=Local"
+
+// func Init() {
+// 	db, err := gorm.Open(mysql.Open(DNS), &gorm.Config{})
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		panic("Cannot connect to DB")
+// 	}
+// 	db.AutoMigrate(&model.Book{})
+
+// }
 
 func Init() {
-	DB, err := gorm.Open(mysql.Open(DNS), &gorm.Config{})
-	if err != nil {
-		fmt.Println(err.Error())
-		panic("Cannot connect to DB")
-	}
-	DB.AutoMigrate(&model.Book{})
-
+	config.Connect()
+	db = config.GetDB()
+	db.AutoMigrate(&model.Book{})
 }
 
 //Create Book
 func CreateBook(ctx context.Context, newBook model.Book) (uint, error) {
 	user := model.Book{Title: newBook.Title, Author: newBook.Author}
-	create := DB.Create(&user)
+	create := db.Create(user)
 	if create.Error != nil {
 		return 0, create.Error
 	}
@@ -40,12 +46,12 @@ func UpdateBook(ctx context.Context, updateBook model.Book, id uint64) (uint, er
 
 	var book model.Book
 
-	err := DB.Where("ID=?", id).Find(&book).Error
+	err := db.Where("ID=?", id).Find(&book).Error
 	if err != nil {
 		return 0, err
 	}
 
-	err = DB.Model(&book).Updates(updateBook).Error
+	err = db.Model(&book).Updates(updateBook).Error
 	if err != nil {
 		return 0, err
 	}
@@ -55,7 +61,7 @@ func UpdateBook(ctx context.Context, updateBook model.Book, id uint64) (uint, er
 
 //Delete Book
 func DeleteBook(s string) error {
-	tx := DB.Delete(s)
+	tx := db.Delete(s)
 	if tx != nil {
 		return tx.Error
 	}
@@ -66,7 +72,7 @@ func DeleteBook(s string) error {
 //GetAll Books
 func GetAllBooks() ([]model.Book, error) {
 	var listOfBooks []model.Book
-	err := DB.Find(&listOfBooks).Error
+	err := db.Find(&listOfBooks).Error
 	if err != nil {
 		return nil, err
 	}
@@ -86,13 +92,13 @@ func SearchBook(title string, author string) ([]model.Book, error) {
 	}
 
 	if title == "" {
-		err := DB.Find(&author).Error
+		err := db.Find(&author).Error
 		if err != nil {
 			return nil, err
 		}
 	}
 	if author == "" {
-		err := DB.First(&title).Error
+		err := db.First(&title).Error
 		if err != nil {
 			return nil, err
 		}

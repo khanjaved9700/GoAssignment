@@ -26,11 +26,6 @@ func TestCreatePerson(t *testing.T) {
 	if status := r.Code; status != http.StatusOK {
 		t.Errorf("Wrong answer %v  got %v", status, http.StatusOK)
 	}
-	// expected := `{"id":1,"name":"javed","age":25,"email":"javed@tftus.com"}`
-	// if r.Body.String() != expected {
-	// 	t.Errorf("Wrong Answer By Handler: got %v want %v",
-	// 		r.Body.String(), expected)
-	// }
 }
 
 //  test wheather update work correctly or not...
@@ -50,11 +45,6 @@ func TestUpdatePersonByID(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
-	// expected := `{"id":2,"name":"rajat","age":25,"email":"rajat@tftus.com"}`
-	// if r.Body.String() != expected {
-	// 	t.Errorf("handler returned unexpected body: got %v want %v",
-	// 		r.Body.String(), expected)
-	// }
 }
 
 //  here testing getall func
@@ -72,11 +62,6 @@ func TestGetAll(t *testing.T) {
 		t.Errorf("Wrong answer %v  got %v", status, http.StatusOK)
 	}
 
-	// expected := `[{id":1,"name":"javed","age":25,"email":"javed@tftus.com"},{"name":"rajat","age":25,"email":"rajat@tftus.com"}]`
-	// if r.Body.String() != expected {
-	// 	t.Errorf("Wrong Answer By Handler: got %v want %v",
-	// 		r.Body.String(), expected)
-	// }
 }
 
 //  testing getbyid func
@@ -93,13 +78,9 @@ func TestGetByID(t *testing.T) {
 		t.Errorf("Wrong answer %v  got %v", status, http.StatusOK)
 	}
 
-	// expected := `{"id":1,"name":"javed","age":25,"email":"javed@tftus.com"}`
-	// if r.Body.String() != expected {
-	// 	t.Errorf("Wrong Answer By Handler: got %v want %v",
-	// 		r.Body.String(), expected)
-	// }
 }
 
+// testing wheather data will be deleted by id or not
 func TestDeletPersonByID(t *testing.T) {
 	req, err := http.NewRequest("DELETE", "/persons/2", nil)
 	if err != nil {
@@ -111,11 +92,5 @@ func TestDeletPersonByID(t *testing.T) {
 	if status := r.Code; status != http.StatusOK {
 		t.Errorf("Wrong answer %v  got %v", status, http.StatusOK)
 	}
-
-	// expected := `{"id":1,"name":"javed","age":25,"email":"javed@tftus.com"}`
-	// if r.Body.String() != expected {
-	// 	t.Errorf("Wrong Answer By Handler: got %v want %v",
-	// 		r.Body.String(), expected)
-	// }
 
 }

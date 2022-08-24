@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 )
@@ -35,7 +36,10 @@ func ImageDownload(images []string) string {
 			}
 
 			if u.Scheme == "https" {
-				output, err := os.Create(imageName)
+
+				// save image
+				path := filepath.Join("/Desktop/GoAssignment/04-img_downloader/images$", imageName) //Creating Path
+				output, err := os.Create(path)
 				if err != nil {
 					log.Fatal(err)
 				}

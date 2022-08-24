@@ -44,7 +44,7 @@ func GetAllPerson() []Person {
 //  get person by id
 func GetPersonById(id int64) (*Person, *gorm.DB) {
 	var getPerson Person
-	db := db.Where("ID=?", id).Find(&getPerson)
+	db := db.Where("ID=?", id).Find(&getPerson) // get id like we fetch data in mysql e.g select * from person where id =id
 	return &getPerson, db
 
 }
@@ -52,7 +52,7 @@ func GetPersonById(id int64) (*Person, *gorm.DB) {
 // delete person
 func DeletePerson(id int64) Person {
 	var dltperson Person
-	db.Where("ID=?", id).Delete(dltperson)
+	db.Where("ID=?", id).Delete(dltperson) // get id like we fetch data in mysql e.g select * from person where id =id
 	return dltperson
 
 }

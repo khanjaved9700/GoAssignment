@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github/khanjaved9700/wordCount/helper"
 	"strings"
 )
+
+/*
 
 //  this function returns a map containing frequency of the each word
 func WordCount(str string) map[string]int {
@@ -40,6 +43,8 @@ func Top10Word(str string) string {
 	return resString
 }
 
+*/
+
 func main() {
 
 	// Taking input from user.....
@@ -66,12 +71,12 @@ func main() {
 	//  handle space, in case user type only space
 	blank := strings.TrimSpace(str) == ""
 	if blank {
-		fmt.Println("wrong Input")
+		fmt.Println("Empty String /wrong Input")
 	}
 
-	resulttop10String := Top10Word(str) // top10word gives top 10 words from provided strings
+	resulttop10String := helper.Top10Word(str) // top10word gives top 10 words from provided strings
 	// fmt.Println(resulttop10String)
-	for index, val := range WordCount(resulttop10String) {
+	for index, val := range helper.WordCount(resulttop10String) {
 		fmt.Println(index, "==>", val)
 	}
 }

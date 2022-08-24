@@ -3,8 +3,8 @@ module bookms
 go 1.18
 
 require (
+	github.com/jinzhu/gorm v1.9.16
 	google.golang.org/protobuf v1.27.1
-	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.23.8
 )
 

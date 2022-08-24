@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func WordCount(str string) {
+func WordCount(str string) map[string]int {
 
 	fmt.Println(str)
 
@@ -29,9 +29,11 @@ func WordCount(str string) {
 	n := make(map[string]int)
 	for index, key := range wordCounts {
 		n[key] = m[key]
-		fmt.Fprintf(w, "%s %d\n", key, n[key])
+		// fmt.Fprintf(w, "%s %d\n", key, n[key])
+		fmt.Printf("%s %d\n", key, n[key])
 		if index == 9 {
 			break
 		}
 	}
+	return n
 }

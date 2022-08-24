@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const address = ":40021"
+const address = ":55001"
 
 var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
