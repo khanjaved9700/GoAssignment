@@ -12,7 +12,7 @@ func TestCreatePerson(t *testing.T) {
 
 	var jsonReq = []byte(`{"id":1,"FirstName":"javed","LastName":"khan","email":"javed@tftus.com"}`)
 
-	req, err := http.NewRequest("POST", "/persons/", bytes.NewBuffer(jsonReq))
+	req, err := http.NewRequest("POST", "/createperson/", bytes.NewBuffer(jsonReq))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +33,7 @@ func TestUpdatePersonByID(t *testing.T) {
 
 	var jsonReq = []byte(`{"id":2,"name":"rajat","age":25,"email":"rajat@tftus.com"}`)
 
-	req, err := http.NewRequest("PUT", "/persons/{id}", bytes.NewBuffer(jsonReq))
+	req, err := http.NewRequest("PUT", "/updateperson/{id}", bytes.NewBuffer(jsonReq))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -50,7 +50,7 @@ func TestUpdatePersonByID(t *testing.T) {
 //  here testing getall func
 func TestGetAll(t *testing.T) {
 
-	req, err := http.NewRequest("GET", "/persons/", nil)
+	req, err := http.NewRequest("GET", "/getalldata/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,7 +66,7 @@ func TestGetAll(t *testing.T) {
 
 //  testing getbyid func
 func TestGetByID(t *testing.T) {
-	req, err := http.NewRequest("GET", "/persons/{id}", nil)
+	req, err := http.NewRequest("GET", "/getdata/{id}", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func TestGetByID(t *testing.T) {
 
 // testing wheather data will be deleted by id or not
 func TestDeletPersonByID(t *testing.T) {
-	req, err := http.NewRequest("DELETE", "/persons/2", nil)
+	req, err := http.NewRequest("DELETE", "/deleteperson/2", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

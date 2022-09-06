@@ -16,5 +16,5 @@ func main() {
 	routes.RegisterPersonRoutes(r)
 
 	http.Handle("/", r)
-	log.Fatal(http.ListenAndServe("localhost:9001", r))
+	log.Fatal(http.ListenAndServe(":9001", r))
 }

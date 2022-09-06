@@ -44,12 +44,12 @@ func main() {
 	// made a menu bar like in a resturent menubar where custumer give order....
 
 	for {
-		fmt.Println(`*********************MENU*********************
-		*	1. UPLOAD A NEW BOOK	*
-		*	2. GET ALL BOOK			*
-		*	3. SEARCH BOOK			*
-		*	4. UPDATE				*
-		*	5. DELETE				*
+		fmt.Println(`----------MENU-----------------
+			1. UPLOAD A NEW BOOK	
+			2. GET ALL BOOK			
+			3. SEARCH BOOK			
+			4. UPDATE				
+			5. DELETE				
 		for exit choose any ohter number...
 		`)
 		fmt.Println("_________________________")
@@ -57,7 +57,7 @@ func main() {
 
 		input, err := reader.ReadString('\n')
 		if err != nil {
-			log.Fatal("wrong input your exit now!", err)
+			log.Fatal("wrong input you are exit now!", err)
 		}
 		option, err := strconv.ParseInt(strings.TrimSpace(input), 0, 0)
 		if err != nil {
@@ -65,6 +65,7 @@ func main() {
 
 		}
 
+		// select options for performing a certian types of opertations
 		switch option {
 		case 1:
 			err := BookCreate(client, ctx)

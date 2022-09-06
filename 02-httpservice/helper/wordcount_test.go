@@ -4,20 +4,27 @@ import (
 	"testing"
 )
 
-var dict map[string]int
+func TestCoont(t *testing.T) {
+	str := "a a a a *** %% ** !!!~~~~~~ a a a a a fas afkasf ajsfka fajfkafs jaksf asjfkasf  fasjkf"
 
-func TestWC(t *testing.T) {
+	WCM := WordCount(str)
+	freq := WCM["a"]
+	// length := len(WCM)
+	Expected := 9
 
-	content := "j j j j j a a a aja jd aja a jd a aj aja"
-	dict = WordCount(content)
-
-	//expected Result
-	expected := 5
-
-	if dict["j"] != expected {
-		t.Errorf("\nWord Count FAILED! \nExpected %d, got %d\n", expected, dict["j"])
-	} else {
-		t.Logf("\nWord Count PASSED \nExpected %d, got %d\n", expected, dict["j"])
+	if freq != Expected {
+		t.Fatalf("Expected %v but got %v", Expected, freq)
 	}
 
+}
+
+func TestEmptyString(t *testing.T) {
+	str := "hey this is javed im a associate sofware engineer of TFT, TFT is a good company etc. etc. %%%%% ## 3 ##### ####"
+	wcf := WordCount(str)
+	topTen := TopTenWord(wcf)
+	strLen := len(topTen)
+	Expected := 10
+	if strLen != Expected {
+		t.Fatalf("Expected %v but got %v", Expected, strLen)
+	}
 }

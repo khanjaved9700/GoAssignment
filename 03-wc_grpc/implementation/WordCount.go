@@ -26,20 +26,23 @@ func (s *WcServer) WordCount(ctx context.Context, in *pb.Request) (*pb.Response,
 	}
 
 	//Removing all spcial charecters and white spaces from string
-	reg, _ := regexp.Compile(`[^\w]`)
+	reg, err := regexp.Compile(`[^\w]`)
+	if err != nil {
+		return nil, errors.New("some special character / white space are left")
+	}
 
 	content = reg.ReplaceAllString(content, " ")
 
 	//making slice of a content
 	strSlice := strings.Split(content, " ")
 
-	//making dictionarry and store count in it
+	//making map and store count in it
 	wcMap := make(map[string]int32)
 
 	for _, word := range strSlice {
 		if word != "" {
 
-			wcMap[word]++ // increment here
+			wcMap[word]++ // increment count if exist already otherwise set 1
 
 		}
 
@@ -56,7 +59,7 @@ func (s *WcServer) WordCount(ctx context.Context, in *pb.Request) (*pb.Response,
 		words = append(words, w)
 	}
 
-	//Sorting Words by count in slice
+	//Sorting Words according to number of counts in slice highest frequency words come first...
 	sort.Slice(words, func(i, j int) bool {
 		return wcMap[words[i]] > wcMap[words[j]]
 	})

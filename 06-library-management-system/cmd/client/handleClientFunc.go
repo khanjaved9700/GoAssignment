@@ -21,8 +21,8 @@ func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 
 	title, err := reader.ReadString('\n')
 	if err != nil {
-		// return errors.New(fmt.Sprint("Invalid Input: Please try again", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Invalid Input: Please try again", err))
+
 	}
 	title = strings.TrimSpace(title)
 
@@ -32,16 +32,15 @@ func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 
 	author, err := reader.ReadString('\n')
 	if err != nil {
-		// return errors.New(fmt.Sprint("Incorrect! please provide correct author name"))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Incorrect! please provide correct author name"))
+
 	}
 	author = strings.TrimSpace(author)
 
 	// fmt.Println(author)
 
 	if title == "" || author == "" {
-		// return errors.New("empty strings plz do some enteries...")
-		fmt.Println("Please check Title or Author It coudn't be empty")
+		return errors.New("empty strings plz do some enteries...")
 	}
 	// creating book to send request...
 	NewBook := &pb.Book{
@@ -54,8 +53,8 @@ func BookCreate(client pb.BookServiceClient, ctx context.Context) error {
 	res, err := client.CreateBook(ctx, &pb.CreateBookRequest{Book: NewBook})
 
 	if err != nil {
-		// return errors.New(fmt.Sprint("book response failed...", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("book response failed...", err))
+
 	}
 
 	// print new uploaded book....
@@ -77,7 +76,7 @@ func BookGetAll(client pb.BookServiceClient, ctx context.Context) error {
 	if err != nil {
 		panic(err)
 	}
-	// HandleError(err)
+
 	page = strings.TrimSpace(page)
 	pageNo, err := strconv.ParseInt(page, 0, 0)
 	if err != nil {
@@ -97,8 +96,8 @@ func BookGetAll(client pb.BookServiceClient, ctx context.Context) error {
 	// call GetAllBooks thats returns a stream....
 	stream, err := client.GetAllBook(ctx, &pb.GetAllBookRequest{})
 	if err != nil {
-		// return errors.New(fmt.Sprint("streaming failed..."))
-		HandleError(err)
+		return errors.New(fmt.Sprint("streaming failed..."))
+
 	}
 	fmt.Println("Books: ")
 
@@ -110,8 +109,8 @@ func BookGetAll(client pb.BookServiceClient, ctx context.Context) error {
 			break
 		}
 		if err != nil {
-			// return errors.New(fmt.Sprint("Streaming  failed"))
-			HandleError(err)
+			return errors.New(fmt.Sprint("Streaming  failed"))
+
 		}
 		if i >= int(print) {
 			fmt.Printf("%d,%v\n", i+1, responce.GetBook())
@@ -148,19 +147,16 @@ func BookSearch(client pb.BookServiceClient, ctx context.Context) error {
 		fmt.Println("Enter Title: ")
 		title, err := reader.ReadString('\n')
 		if err != nil {
-			// return err
 			HandleError(err)
 		}
 
 		title = strings.TrimSpace(title)
 
 		if title == "" {
-			// return errors.New("empty title")
-			HandleError(err)
+			return errors.New("empty title")
 		}
 
 		if err != nil {
-			// return err
 			HandleError(err)
 		}
 
@@ -175,9 +171,7 @@ func BookSearch(client pb.BookServiceClient, ctx context.Context) error {
 		})
 
 		if err != nil {
-			// return err
-			// HandleError(err)
-			fmt.Println("Error while streaming...")
+			return errors.New(fmt.Sprint("Error while streaming..."))
 		}
 		// }
 
@@ -193,8 +187,7 @@ func BookSearch(client pb.BookServiceClient, ctx context.Context) error {
 		author = strings.TrimSpace(author)
 
 		if author == "" {
-			// return errors.New("empty author")
-			HandleError(err)
+			return errors.New("empty author")
 		}
 
 		//Streaming
@@ -203,13 +196,11 @@ func BookSearch(client pb.BookServiceClient, ctx context.Context) error {
 		})
 
 		if err != nil {
-			// return err
 			HandleError(err)
 		}
 
 	default:
-		return errors.New("search book failed")
-		// fmt.Println("Please Choose Right Selection")
+		return errors.New("search book failed : Please Choose Right Selection")
 	}
 
 	fmt.Println("Books we have found...")
@@ -225,8 +216,7 @@ func BookSearch(client pb.BookServiceClient, ctx context.Context) error {
 		}
 		// if err, print error
 		if err != nil {
-			// return errors.New(fmt.Sprint("Stream error: ", err))
-			HandleError(err)
+			return errors.New(fmt.Sprint("Stream error: ", err))
 		}
 
 		// If everything went well use the generated getter to print the Book Details
@@ -243,35 +233,30 @@ func BookUpdate(client pb.BookServiceClient, ctx context.Context) error {
 	fmt.Println("Updating book by id Please Enter Book ID:")
 	id, err := reader.ReadString('\n')
 	if err != nil {
-		// return errors.New(fmt.Sprint("Invalid ID..", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Invalid ID..", err))
 	}
 	id = strings.TrimSpace(id)
 
 	fmt.Print("Book Title: ")
 	title, err := reader.ReadString('\n')
 	if err != nil {
-		// return errors.New(fmt.Sprint("Invalid Book Title..", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Invalid Book Title..", err))
 	}
 	title = strings.TrimSpace(title)
 
 	fmt.Print("Book Author: ")
 	author, err := reader.ReadString('\n')
 	if err != nil {
-		// return errors.New(fmt.Sprint("Invalid Book Author..", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Invalid Book Author..", err))
 	}
 	author = strings.TrimSpace(author)
 
 	if id == "" || title == "" || author == "" {
-		// return errors.New(fmt.Sprint("Empty..."))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Empty..."))
 	}
 
 	num, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
-		// log.Fatal(err)
 		HandleError(err)
 	}
 	//Creating Request
@@ -283,8 +268,7 @@ func BookUpdate(client pb.BookServiceClient, ctx context.Context) error {
 	//Call UpdateBook that returns a Book as response
 	response, err := client.UpdateBook(ctx, &pb.UpdateBookRequest{Book: updateBook})
 	if err != nil {
-		// return errors.New(fmt.Sprint("Could not update book: \n", err))
-		HandleError(err)
+		return errors.New(fmt.Sprint("Could not update book: \n", err))
 	}
 	//print
 	log.Printf(`Book Updated:
@@ -297,9 +281,6 @@ func BookUpdate(client pb.BookServiceClient, ctx context.Context) error {
 
 //Delete Book
 func BookDelete(client pb.BookServiceClient, ctx context.Context) error {
-	// panic("unimplemented")
-
-	// func BookDelete(client pb.BookServiceClient, ctx context.Context) error {
 
 	fmt.Printf("Enter Book Title u want to delete:  ")
 	input, err := reader.ReadString('\n')

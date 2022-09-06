@@ -2,55 +2,23 @@ package main
 
 import (
 	"fmt"
+	"httpservices/controller"
 	"log"
 	"net/http"
 
-	"github.com/khanjaved9700/httpservice/helper"
+	"github.com/gorilla/mux"
 )
-
-// func Handler(w http.ResponseWriter, r *http.Request) {
-// 	defer r.Body.Close()
-// 	fileName := "file.txt"
-
-// 	file, err := ioutil.ReadFile(fileName)
-
-// 	if err != nil {
-
-// 		log.Fatal(err)
-// 	}
-
-// 	text := string(file)
-// 	words := strings.Fields(text)
-
-// 	m := make(map[string]int)
-// 	for _, word := range words {
-// 		m[word]++
-// 	}
-
-// 	wordCounts := make([]string, len(m))
-// 	for key := range m {
-// 		wordCounts = append(wordCounts, key)
-// 	}
-
-// 	sort.Slice(wordCounts, func(i, j int) bool {
-// 		return m[wordCounts[i]] > m[wordCounts[j]]
-// 	})
-
-// 	n := make(map[string]int)
-// 	for index, key := range wordCounts {
-// 		n[key] = m[key]
-// 		fmt.Fprintf(w, "%s %d\n", key, n[key])
-// 		if index == 9 {
-// 			break
-// 		}
-// 	}
-// }
 
 func main() {
 
-	http.HandleFunc("/wordcount", helper.Handler)
-	fmt.Println("servr is running at PORT 4020")
-
-	log.Fatal(http.ListenAndServe(":4020", nil))
+	r := mux.NewRouter()                                                // creating a new router
+	r.HandleFunc("/wordcount", controller.HttpServices).Methods("Post") // register on request handler on it
+	fmt.Println("servr is running at PORT 4004")
+	log.Fatal(http.ListenAndServe(":4004", r))
 
 }
+
+/*The router is the main router for the application and willcpassed as
+parameter to the server. It will receive all HTTP connections and pass it on to the
+request handlers you will register on it.
+*/

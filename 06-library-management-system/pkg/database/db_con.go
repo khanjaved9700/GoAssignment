@@ -12,18 +12,6 @@ import (
 
 var db *gorm.DB
 
-// const DNS = "root:javed@123@/bookms_db?charset=utf8mb4&parseTime=True&loc=Local"
-
-// func Init() {
-// 	db, err := gorm.Open(mysql.Open(DNS), &gorm.Config{})
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		panic("Cannot connect to DB")
-// 	}
-// 	db.AutoMigrate(&model.Book{})
-
-// }
-
 func Init() {
 	config.Connect()
 	db = config.GetDB()

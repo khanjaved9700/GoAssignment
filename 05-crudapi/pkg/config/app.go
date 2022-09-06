@@ -7,17 +7,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// import (
-// 	"gorm.io/driver/mysql"
-// 	"gorm.io/gorm"
-//   )
-//   func main() {
-// 	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
-// 	dsn := "user:pass@tcp(localhost:3306)/simpleapi?charset=utf8mb4&parseTime=True&loc=Local"
-// 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-//   }
-
-// declear global variable for databse connection
 var (
 	db *gorm.DB
 )

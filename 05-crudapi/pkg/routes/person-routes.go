@@ -8,10 +8,11 @@ import (
 
 // register routes
 var RegisterPersonRoutes = func(router *mux.Router) {
-	router.HandleFunc("/creates/", controller.CreatePerson).Methods("POST")
-	router.HandleFunc("/creates/", controller.GetAllPerson).Methods("GET")
-	router.HandleFunc("/creates/{pid}", controller.GetPersonById).Methods("GET")
-	router.HandleFunc("/creates/{pid}", controller.UpdatePerson).Methods("PUT")
-	router.HandleFunc("/creates/{pid}", controller.DeletePerson).Methods("DELETE")
+	router.HandleFunc("/", controller.ServeHome).Methods("GET")
+	router.HandleFunc("/createperson/", controller.CreatePerson).Methods("POST")
+	router.HandleFunc("/getalldata/", controller.GetAllPerson).Methods("GET")
+	router.HandleFunc("/getdata/{pid}", controller.GetPersonById).Methods("GET")
+	router.HandleFunc("/updateperson/{pid}", controller.UpdatePerson).Methods("PUT")
+	router.HandleFunc("/deleteperson/{pid}", controller.DeletePerson).Methods("DELETE")
 
 }
